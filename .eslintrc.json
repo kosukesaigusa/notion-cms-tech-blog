@@ -1,0 +1,76 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    // "plugin:import",
+    "plugin:import/recommended",
+    "plugin:import/warnings",
+    // eslint-config-prettier を有効化
+    "prettier"
+  ],
+  "plugins": ["unused-imports"],
+  "rules": {
+    "unused-imports/no-unused-imports": "error",
+    "sort-imports": [
+      "error",
+      {
+        "allowSeparatedGroups": true,
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "object",
+          "type",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "next/**",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "API",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "graphql/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "ui-components/**",
+            "group": "index",
+            "position": "after"
+          },
+          {
+            "pattern": "**\\.css",
+            "group": "index",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react", "next/**"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": false
+        }
+      }
+    ]
+  }
+}
