@@ -253,32 +253,8 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: '私たちについて',
-    href: '/about',
-    // children: [
-    //   {
-    //     label: 'Explore Design Work',
-    //     subLabel: 'Trending Design to inspire you',
-    //     href: '#',
-    //   },
-    //   {
-    //     label: 'New & Noteworthy',
-    //     subLabel: 'Up-and-coming Designers',
-    //     href: '#',
-    //   },
-    // ],
-  },
-  {
-    label: '活動',
-    href: '/activities',
-  },
-  {
-    label: 'ニュース',
+    label: 'ブログ',
     href: '/news',
-  },
-  {
-    label: 'サポートする',
-    href: '/support',
   },
   {
     label: 'お問い合わせ',

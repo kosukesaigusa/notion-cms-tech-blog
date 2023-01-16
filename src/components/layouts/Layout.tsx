@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <Box>
       <Head>
-        <title>NPO法人 MOTTAI</title>
+        <title>タイトル</title>
         <meta
           name="description"
           content="MOTTAIは「当たり前の裏側にアクセスしやすい社会を創る」をビジョンに掲げて活動するNPO法人です。"
