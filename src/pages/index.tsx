@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
 
-import { queryDatabase } from '../api/query-notion-db'
+import { queryDatabase, retrievePage } from '../api/query-notion-db'
 import ContentContainer from '../components/ContentContainer'
 import { parseProperties, Post } from '../utils/parser-properties'
 
@@ -23,5 +23,8 @@ export default function TopPage({ posts }: { posts: Post[] }) {
 export const getStaticProps = async () => {
   const queryDatabaseResponse = await queryDatabase()
   const posts = parseProperties(queryDatabaseResponse)
+  const pageId = posts[2].id
+  const getPageResponse = await retrievePage(pageId)
+  console.log(getPageResponse)
   return { props: { posts } }
 }
