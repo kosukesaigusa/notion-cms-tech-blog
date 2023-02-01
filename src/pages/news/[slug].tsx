@@ -1,10 +1,10 @@
-import fs from 'fs'
+import { Box, Divider, Text } from '@chakra-ui/react'
 
-import { Box, Divider, Heading, Text } from '@chakra-ui/react'
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
-import matter from 'gray-matter'
-import ReactMarkdown from 'react-markdown'
-
+import {
+  listBlockChildren,
+  queryDatabase,
+  retrieveBlocks,
+} from '../../api/query-notion-db'
 import {
   CommonExternalLinkText,
   CommonH2,
@@ -16,57 +16,53 @@ import {
   CommonText,
   CommonUnorderedList,
 } from '../../components/Common'
-import TopicPath from '../../components/TopicPath'
-import { jaYYYYMMDD } from '../../utils/date'
+import { parseProperties } from '../../utils/parser-properties'
 
-export default function NewsArticle({
-  newsArticle,
-}: {
-  newsArticle: NewsArticle
-}) {
+export default function NewsArticle({ pageId }: { pageId: string }) {
   return (
     <Box maxW={'48em'} mx={'auto'} my={12} py={0} px={'2rem'}>
-      <TopicPath />
-      <Heading fontSize={'md'}>{newsArticle.summary.title}</Heading>
+      <Text>ページ ID：{pageId}</Text>
+      {/* <Heading fontSize={'md'}>{newsArticle.summary.title}</Heading>
       <Text>投稿日：{newsArticle.summary.createdAt}</Text>
       <ReactMarkdown
         components={ChakraUIRenderer(customChakraUIRenderTheme)}
         skipHtml
       >
         {newsArticle.content}
-      </ReactMarkdown>
+      </ReactMarkdown> */}
     </Box>
   )
 }
 
 // TODO: コメントを書く
 /**  */
-export function getStaticProps({ params }: { params: { slug: string } }) {
-  const fileContent = fs.readFileSync(
-    `src/news-articles/${params.slug}.md`,
-    'utf-8'
-  )
-  const { data, content } = matter(fileContent)
-  const slug = params.slug
-  // const createdAt = data.createdAt as string
-  const createdAt = jaYYYYMMDD(data.createdAt)
-  const title = data.title as string
-  const imageUrl = data.imageUrl as string
-  const description = data.description as string
-  const newsArticle: NewsArticle = {
-    summary: { slug, createdAt, title, imageUrl, description },
-    content,
+export const getStaticProps = async ({
+  params,
+}: {
+  params: { slug: string }
+}) => {
+  // TODO: slug と pageId を区別する
+  const pageId = params.slug
+  const listBlockChildrenResponse = await listBlockChildren(params.slug)
+  const blocks = listBlockChildrenResponse.results
+  for (const block of blocks) {
+    console.log('🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱')
+    const getBlocksResponse = await retrieveBlocks(block.id)
+    console.log(getBlocksResponse)
+    console.log('🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱')
   }
-  return { props: { newsArticle } }
+  return { props: { pageId } }
 }
 
 // TODO: コメントを書く
 /**  */
-export function getStaticPaths() {
-  const newsFiles = fs.readdirSync('src/news-articles')
-  const paths = newsFiles.map((fileName) => ({
+export const getStaticPaths = async () => {
+  const queryDatabaseResponse = await queryDatabase()
+  const posts = parseProperties(queryDatabaseResponse)
+  const pageIds = posts.map((post) => post.id)
+  const paths = pageIds.map((pageId) => ({
     params: {
-      slug: fileName.replace(/\.md$/, ''),
+      slug: pageId,
     },
   }))
   return {

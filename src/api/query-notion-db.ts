@@ -13,3 +13,17 @@ export const retrievePage = async (pageId: string) =>
   await notionClient.pages.retrieve({
     page_id: pageId,
   })
+
+/** 指定した blockId の Block 一覧を取得する。 */
+export const listBlockChildren = async (blockId: string) =>
+  await notionClient.blocks.children.list({
+    block_id: blockId,
+    // TODO: ページサイズをちょうどよく調整する。
+    // page_size: 10,
+  })
+
+/** 指定した blockId の Block 一覧を取得する。 */
+export const retrieveBlocks = async (blockId: string) =>
+  await notionClient.blocks.retrieve({
+    block_id: blockId,
+  })

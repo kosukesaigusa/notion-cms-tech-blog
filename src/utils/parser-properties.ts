@@ -12,7 +12,6 @@ export type Post = {
 export const parseProperties = (response: QueryDatabaseResponse): Post[] =>
   response.results.map((row) => {
     const id = row.id
-    // console.log(row)
     const titleCell = (
       (row as PageObjectResponse).properties.title as {
         type: 'title'
