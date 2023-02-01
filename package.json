@@ -1,5 +1,5 @@
 {
-  "name": "mottai_hp_next_chakra",
+  "name": "notion-cms-tech-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'"
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.3",
@@ -38,5 +37,9 @@
     "markdown-it": "^13.0.1",
     "next-sitemap": "^3.1.30",
     "react-markdown": "^8.0.3"
+  },
+  "volta": {
+    "node": "16.18.1",
+    "npm": "8.19.2"
   }
 }

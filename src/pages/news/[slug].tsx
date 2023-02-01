@@ -1,10 +1,8 @@
-import { Box, Divider, Text } from '@chakra-ui/react'
+import fs from 'fs'
 
-import {
-  listBlockChildren,
-  queryDatabase,
-  retrieveBlocks,
-} from '../../api/query-notion-db'
+import { Box, Divider, Text } from '@chakra-ui/react'
+import matter from 'gray-matter'
+
 import {
   CommonExternalLinkText,
   CommonH2,
@@ -16,7 +14,6 @@ import {
   CommonText,
   CommonUnorderedList,
 } from '../../components/Common'
-import { parseProperties } from '../../utils/parser-properties'
 
 export default function NewsArticle({ pageId }: { pageId: string }) {
   return (
@@ -42,27 +39,34 @@ export const getStaticProps = async ({
   params: { slug: string }
 }) => {
   // TODO: slug と pageId を区別する
-  const pageId = params.slug
-  const listBlockChildrenResponse = await listBlockChildren(params.slug)
-  const blocks = listBlockChildrenResponse.results
-  for (const block of blocks) {
-    console.log('🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱')
-    const getBlocksResponse = await retrieveBlocks(block.id)
-    console.log(getBlocksResponse)
-    console.log('🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱')
+  const fileContent = fs.readFileSync(
+    `exported_posts/${params.slug}.md`,
+    'utf-8'
+  )
+  const { data, content } = matter(fileContent)
+  const slug = params.slug
+  // const createdAt = jaYYYYMMDD(data.createdAt)
+  // const title = data.title as string
+  // const imageUrl = data.imageUrl as string
+  // const description = data.description as string
+  const createdAt = ''
+  const title = 'タイトル'
+  const imageUrl = ''
+  const description = '説明'
+  const newsArticle: NewsArticle = {
+    summary: { slug, createdAt, title, imageUrl, description },
+    content,
   }
-  return { props: { pageId } }
+  return { props: { newsArticle } }
 }
 
 // TODO: コメントを書く
 /**  */
-export const getStaticPaths = async () => {
-  const queryDatabaseResponse = await queryDatabase()
-  const posts = parseProperties(queryDatabaseResponse)
-  const pageIds = posts.map((post) => post.id)
-  const paths = pageIds.map((pageId) => ({
+export const getStaticPaths = () => {
+  const newsFiles = fs.readdirSync('exported_posts')
+  const paths = newsFiles.map((fileName) => ({
     params: {
-      slug: pageId,
+      slug: fileName.replace(/\.md$/, ''),
     },
   }))
   return {

@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 
 import { queryDatabase } from '../api/query-notion-db'
 import ContentContainer from '../components/ContentContainer'
-import { parseProperties, Post } from '../utils/parser-properties'
+import { parseProperties, Post } from '../../scripts/parse-notion-page'
 
 export default function TopPage({ posts }: { posts: Post[] }) {
   return (
