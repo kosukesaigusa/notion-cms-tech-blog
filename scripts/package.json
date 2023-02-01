@@ -6,7 +6,7 @@
         "lint": "eslint --ext .ts .",
         "lint:fix": "npm run lint -- --fix",
         "lint-staged": "lint-staged",
-        "export": "ts-node -r tsconfig-paths/register  src/export_markdowns && npm run format",
+        "export-md": "ts-node -r tsconfig-paths/register  src/export_markdowns && npm run format",
         "format": "prettier --write --ignore-path .gitignore './**/*.{md,js,jsx,ts,tsx,json}'"
     },
     "dependencies": {
