@@ -17,7 +17,7 @@ NOTION_DATABASE_ID=<YOUR_NOTION_DATABASE_ID_HERE>
 
 ## Run
 
-Export Notion database pages to `exported-posts` directory as markdown files.
+Export Notion database pages to `../exported-posts` directory as markdown files.
 
 ```sh
 npm run export-md
