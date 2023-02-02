@@ -30,6 +30,7 @@ const writeMarkdownFile = async (notionPage: NotionPage) => {
     console.log(`💬 exporting post: ${title} (${pageId})`)
     const mdBlocks = await n2m.pageToMarkdown(pageId)
     const mdString = `# ${title}\n${n2m.toMarkdownString(mdBlocks)}`
+    await makeExportedDirectory()
     try {
         await fs.writeFile(
             `${EXPORTED_POSTS_RELATIVE_PATH}/${slug}.md`,
@@ -40,6 +41,15 @@ const writeMarkdownFile = async (notionPage: NotionPage) => {
         console.error(
             `🚨 An error occurred when exporting page: ${title} (${pageId}): ${e}`
         )
+    }
+}
+
+/** Make exported directory if not exists */
+const makeExportedDirectory = async () => {
+    try {
+        await fs.access(EXPORTED_POSTS_RELATIVE_PATH)
+    } catch (_) {
+        await fs.mkdir(EXPORTED_POSTS_RELATIVE_PATH)
     }
 }
 
