@@ -1,4 +1,3 @@
-import console from 'console'
 import fs from 'fs/promises'
 
 import { NotionToMarkdown } from 'notion-to-md'
@@ -58,6 +57,7 @@ ${n2m.toMarkdownString(mdBlocks)}
 /** Creates Markdown header. */
 const createMarkdownHeader = (notionPage: NotionPage) => {
     return `---
+pageId: '${notionPage.pageId}'
 title: '${notionPage.title}'
 slug: '${notionPage.slug}'
 createdAt: '${notionPage.createdAt}'

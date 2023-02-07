@@ -1,18 +1,25 @@
+import fs from 'fs'
+
 import { Box } from '@chakra-ui/react'
+import matter from 'gray-matter'
 
-import { queryDatabase } from '../api/query-notion-db'
 import ContentContainer from '../components/ContentContainer'
-import { parseProperties, Post } from '../../scripts/parse-notion-page'
+import { EXPORTED_POSTS_PATH } from '../constants/constants'
+import { jaYYYYMMDD } from '../utils/date'
 
-export default function TopPage({ posts }: { posts: Post[] }) {
+export default function TopPage({
+  postMetadata,
+}: {
+  postMetadata: PostMetadata[]
+}) {
   return (
     <Box>
       <ContentContainer>
         <ul>
-          {posts.map(({ id, title }) => (
-            <li key={id}>
-              <a href={`/news/${id}`}>
-                {title} ({id})
+          {postMetadata.map((metadata) => (
+            <li key={metadata.pageId}>
+              <a href={`/posts/${metadata.slug}`}>
+                {metadata.title} ({metadata.pageId})
               </a>
             </li>
           ))}
@@ -22,13 +29,27 @@ export default function TopPage({ posts }: { posts: Post[] }) {
   )
 }
 
-// TODO: コメントを追加する
-/** Notion API をコールして、記事一覧からタイトル一覧を取得する。 */
-export const getStaticProps = async () => {
-  const queryDatabaseResponse = await queryDatabase()
-  const posts = parseProperties(queryDatabaseResponse)
-  // const pageId = posts[2].id
-  // const getPageResponse = await retrievePage(pageId)
-  // console.log(getPageResponse)
-  return { props: { posts } }
+/** Fetches posts from markdown files */
+export const getStaticProps = async (): Promise<{
+  props: {
+    postMetadata: PostMetadata[]
+  }
+}> => {
+  const postFiles = fs.readdirSync(EXPORTED_POSTS_PATH).reverse()
+  const postMetadata = postFiles.map((postFileName) => {
+    const slug = postFileName.replace(/\.md$/, '')
+    const fileContent = fs.readFileSync(
+      `${EXPORTED_POSTS_PATH}/${postFileName}`,
+      'utf-8'
+    )
+    const { data } = matter(fileContent)
+    const pageId = data.pageId as string
+    const createdAt = jaYYYYMMDD(data.createdAt)
+    const title = data.title as string
+    const tags = data.tags as string[]
+    const description = data.description as string
+    const isDraft = data.isDraft as boolean
+    return { pageId, slug, createdAt, title, tags, description, isDraft }
+  })
+  return { props: { postMetadata } }
 }

@@ -1,7 +1,9 @@
 import fs from 'fs'
 
-import { Box, Divider, Text } from '@chakra-ui/react'
+import { Box, Divider, Heading, Text } from '@chakra-ui/react'
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import matter from 'gray-matter'
+import ReactMarkdown from 'react-markdown'
 
 import {
   CommonExternalLinkText,
@@ -14,57 +16,60 @@ import {
   CommonText,
   CommonUnorderedList,
 } from '../../components/Common'
+import { EXPORTED_POSTS_PATH } from '../../constants/constants'
+import { jaYYYYMMDD } from '../../utils/date'
 
-export default function NewsArticle({ pageId }: { pageId: string }) {
+export default function PostArticle({ post }: { post: Post }) {
   return (
     <Box maxW={'48em'} mx={'auto'} my={12} py={0} px={'2rem'}>
-      <Text>ページ ID：{pageId}</Text>
-      {/* <Heading fontSize={'md'}>{newsArticle.summary.title}</Heading>
-      <Text>投稿日：{newsArticle.summary.createdAt}</Text>
+      {/* <TopicPath /> */}
+      <Heading fontSize={'md'}>{post.metadata.title}</Heading>
+      <Text>投稿日：{post.metadata.createdAt}</Text>
       <ReactMarkdown
         components={ChakraUIRenderer(customChakraUIRenderTheme)}
         skipHtml
       >
-        {newsArticle.content}
-      </ReactMarkdown> */}
+        {post.content}
+      </ReactMarkdown>
     </Box>
   )
 }
 
 // TODO: コメントを書く
 /**  */
-export const getStaticProps = async ({
-  params,
-}: {
-  params: { slug: string }
-}) => {
-  // TODO: slug と pageId を区別する
+export function getStaticProps({ params }: { params: { slug: string } }) {
   const fileContent = fs.readFileSync(
-    `exported_posts/${params.slug}.md`,
+    `${EXPORTED_POSTS_PATH}/${params.slug}.md`,
     'utf-8'
   )
   const { data, content } = matter(fileContent)
   const slug = params.slug
-  // const createdAt = jaYYYYMMDD(data.createdAt)
-  // const title = data.title as string
-  // const imageUrl = data.imageUrl as string
-  // const description = data.description as string
-  const createdAt = ''
-  const title = 'タイトル'
-  const imageUrl = ''
-  const description = '説明'
-  const newsArticle: NewsArticle = {
-    summary: { slug, createdAt, title, imageUrl, description },
+  const pageId = data.pageId as string
+  const createdAt = jaYYYYMMDD(data.createdAt)
+  const title = data.title as string
+  const tags = data.tags as string[]
+  const description = data.description as string
+  const isDraft = data.isDraft as boolean
+  const post: Post = {
+    metadata: {
+      pageId,
+      slug,
+      createdAt,
+      title,
+      tags,
+      description,
+      isDraft,
+    },
     content,
   }
-  return { props: { newsArticle } }
+  return { props: { post } }
 }
 
 // TODO: コメントを書く
 /**  */
-export const getStaticPaths = () => {
-  const newsFiles = fs.readdirSync('exported_posts')
-  const paths = newsFiles.map((fileName) => ({
+export function getStaticPaths() {
+  const postFiles = fs.readdirSync(EXPORTED_POSTS_PATH)
+  const paths = postFiles.map((fileName) => ({
     params: {
       slug: fileName.replace(/\.md$/, ''),
     },
