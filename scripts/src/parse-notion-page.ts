@@ -11,6 +11,7 @@ export type NotionPage = {
     createdAt: string
     tags: string[]
     description: string
+    isDraft: boolean
 }
 
 /** Parse Notion page properties. */
@@ -25,8 +26,9 @@ export const parseProperties = (
         const createdAt = createdAtFromPageObjectResponse(page)
         const tags = tagsFromPageObjectResponse(page)
         const description = descriptionFromPageObjectResponse(page)
+        const isDraft = isDraftFromPageObjectResponse(page)
         validateNotionPage({ title, slug, createdAt, tags, description })
-        return { pageId, title, slug, createdAt, tags, description }
+        return { pageId, title, slug, createdAt, tags, description, isDraft }
     })
 
 /** Parse Notion page title. */
@@ -82,6 +84,17 @@ const descriptionFromPageObjectResponse = (
         rich_text: { plain_text: string }[]
     }
     return property.rich_text[0].plain_text
+}
+
+/** Parse Notion page isDraft. */
+const isDraftFromPageObjectResponse = (
+    pageObjectResponse: PageObjectResponse
+): boolean => {
+    const property = pageObjectResponse.properties.isDraft as {
+        type: 'checkbox'
+        checkbox: boolean
+    }
+    return property.checkbox
 }
 
 /**  */
