@@ -1,0 +1,3 @@
+[submodule "react-syntax-highlighter"]
+	path = react-syntax-highlighter
+	url = https://github.com/KosukeSaigusa/react-syntax-highlighter.git
