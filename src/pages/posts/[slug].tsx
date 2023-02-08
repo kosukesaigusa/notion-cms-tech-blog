@@ -5,6 +5,7 @@ import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import matter from 'gray-matter'
 import ReactMarkdown from 'react-markdown'
 
+import { CodeBlock, CodeBlockProps } from '../../components/CodeBlock'
 import {
   CommonExternalLinkText,
   CommonH2,
@@ -109,6 +110,13 @@ const customChakraUIRenderTheme = {
   },
   img: (props: any) => {
     return <CommonImage src={props.src} alt={props.alt}></CommonImage>
+  },
+  code: (props: CodeBlockProps) => {
+    return (
+      <CodeBlock inline={props.inline} className={props.className}>
+        {props.children}
+      </CodeBlock>
+    )
   },
   hr: (_: any) => {
     return <Divider my={8} />

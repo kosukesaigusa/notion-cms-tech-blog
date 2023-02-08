@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import {
+  Code,
   Heading,
   Image,
   Link,
@@ -26,6 +27,11 @@ type ImageProps = {
 }
 
 type ListProps = {
+  children: ReactNode
+}
+
+type CodeProps = {
+  className: string
   children: ReactNode
 }
 
@@ -87,4 +93,8 @@ export const CommonOrderedList = (props: ListProps) => {
 
 export const CommonListItem = (props: ListProps) => {
   return <ListItem>{props.children}</ListItem>
+}
+
+export const CommonCode = (props: CodeProps) => {
+  return <Code className={props.className}>{props.children}</Code>
 }
