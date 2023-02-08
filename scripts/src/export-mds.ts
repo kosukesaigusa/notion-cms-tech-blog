@@ -15,6 +15,7 @@ const n2m = new NotionToMarkdown({ notionClient: notionClient })
 const exportMarkdownsFromNotionDatabase = async () => {
     const queryDatabaseResponse = await queryDatabase()
     const posts = parseProperties(queryDatabaseResponse)
+    await makeExportedDirectory()
     console.log(`posts count: ${posts.length}`)
     for (const post of posts) {
         await writeMarkdownFile(post)
@@ -26,12 +27,13 @@ const writeMarkdownFile = async (notionPage: NotionPage) => {
     const pageId = notionPage.pageId
     const title = notionPage.title
     const slug = notionPage.slug
+    // TODO: 理想的ではないので修正したい（yyyy-MM-dd 返す関数作りたい）
+    const createdAt = notionPage.createdAt.substring(0, 10)
     console.log(`💬 exporting post: ${title} (${pageId})`)
     const mdString = await createMarkdownStringByPage(notionPage)
-    await makeExportedDirectory()
     try {
         await fs.writeFile(
-            `${EXPORTED_POSTS_RELATIVE_PATH}/${slug}.md`,
+            `${EXPORTED_POSTS_RELATIVE_PATH}/${createdAt}_${slug}.md`,
             mdString
         )
         console.info(`🙌 Successfully exported: ${title} (${pageId})`)
@@ -58,8 +60,8 @@ ${n2m.toMarkdownString(mdBlocks)}
 const createMarkdownHeader = (notionPage: NotionPage) => {
     return `---
 pageId: '${notionPage.pageId}'
-title: '${notionPage.title}'
 slug: '${notionPage.slug}'
+title: '${notionPage.title}'
 createdAt: '${notionPage.createdAt}'
 tags: '${notionPage.tags}'
 description: '${notionPage.description}'
@@ -67,13 +69,10 @@ isDraft: ${notionPage.isDraft}
 ---`
 }
 
-/** Makes exported directory if not exists */
+/** Once removes exported directory and make a new one. */
 const makeExportedDirectory = async () => {
-    try {
-        await fs.access(EXPORTED_POSTS_RELATIVE_PATH)
-    } catch (_) {
-        await fs.mkdir(EXPORTED_POSTS_RELATIVE_PATH)
-    }
+    await fs.rmdir(EXPORTED_POSTS_RELATIVE_PATH, { recursive: true })
+    await fs.mkdir(EXPORTED_POSTS_RELATIVE_PATH)
 }
 
 /** Executes task. */

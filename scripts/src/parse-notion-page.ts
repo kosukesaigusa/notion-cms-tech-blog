@@ -6,8 +6,8 @@ import {
 /** Self-defined Notion page type. */
 export type NotionPage = {
     pageId: string
-    title: string
     slug: string
+    title: string
     createdAt: string
     tags: string[]
     description: string
@@ -21,26 +21,15 @@ export const parseProperties = (
     response.results.map((pageObjectResponse) => {
         const pageId = pageObjectResponse.id
         const page = pageObjectResponse as PageObjectResponse
-        const title = titleFromPageObjectResponse(page)
         const slug = slugFromPageObjectResponse(page)
+        const title = titleFromPageObjectResponse(page)
         const createdAt = createdAtFromPageObjectResponse(page)
         const tags = tagsFromPageObjectResponse(page)
         const description = descriptionFromPageObjectResponse(page)
         const isDraft = isDraftFromPageObjectResponse(page)
-        validateNotionPage({ title, slug, createdAt, tags, description })
-        return { pageId, title, slug, createdAt, tags, description, isDraft }
+        validateNotionPage({ slug, title, createdAt, tags, description })
+        return { pageId, slug, title, createdAt, tags, description, isDraft }
     })
-
-/** Parse Notion page title. */
-const titleFromPageObjectResponse = (
-    pageObjectResponse: PageObjectResponse
-): string => {
-    const property = pageObjectResponse.properties.title as {
-        type: 'title'
-        title: { plain_text: string }[]
-    }
-    return property.title[0].plain_text
-}
 
 /** Parse Notion page slug. */
 const slugFromPageObjectResponse = (
@@ -51,6 +40,17 @@ const slugFromPageObjectResponse = (
         rich_text: { plain_text: string }[]
     }
     return property.rich_text[0].plain_text
+}
+
+/** Parse Notion page title. */
+const titleFromPageObjectResponse = (
+    pageObjectResponse: PageObjectResponse
+): string => {
+    const property = pageObjectResponse.properties.title as {
+        type: 'title'
+        title: { plain_text: string }[]
+    }
+    return property.title[0].plain_text
 }
 
 /** Parse Notion page createdAt. */
