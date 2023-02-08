@@ -27,13 +27,11 @@ const writeMarkdownFile = async (notionPage: NotionPage) => {
     const pageId = notionPage.pageId
     const title = notionPage.title
     const slug = notionPage.slug
-    // TODO: 理想的ではないので修正したい（yyyy-MM-dd 返す関数作りたい）
-    const createdAt = notionPage.createdAt.substring(0, 10)
     console.log(`💬 exporting post: ${title} (${pageId})`)
     const mdString = await createMarkdownStringByPage(notionPage)
     try {
         await fs.writeFile(
-            `${EXPORTED_POSTS_RELATIVE_PATH}/${createdAt}_${slug}.md`,
+            `${EXPORTED_POSTS_RELATIVE_PATH}/${slug}.md`,
             mdString
         )
         console.info(`🙌 Successfully exported: ${title} (${pageId})`)
@@ -71,7 +69,7 @@ isDraft: ${notionPage.isDraft}
 
 /** Once removes exported directory and make a new one. */
 const makeExportedDirectory = async () => {
-    await fs.rmdir(EXPORTED_POSTS_RELATIVE_PATH, { recursive: true })
+    await fs.rm(EXPORTED_POSTS_RELATIVE_PATH, { recursive: true })
     await fs.mkdir(EXPORTED_POSTS_RELATIVE_PATH)
 }
 
