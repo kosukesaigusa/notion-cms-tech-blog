@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           name="description"
           content="MOTTAIは「当たり前の裏側にアクセスしやすい社会を創る」をビジョンに掲げて活動するNPO法人です。"
         />
-        <meta property="og:url" content={'https://www.npo-mottai.org'} />
+        <meta property="og:url" content={'https://www.run-app.dev'} />
         <meta property="og:site_name" content={'NPO法人 MOTTAI | 公式サイト'} />
         <meta property="og:title" content={'NPO法人 MOTTAI'} />
         <meta
@@ -28,10 +28,10 @@ export default function Layout({ children }: { children: ReactNode }) {
         />
         <meta property="og:type" content={'website'} />
         <meta property="og:locale" content={'ja_JP'} />
-        <meta property="og:url" content={'https://www.npo-mottai.org'} />
+        <meta property="og:url" content={'https://www.run-app.dev'} />
         <meta
           property="og:image"
-          content={'https://www.npo-mottai.org/images/ogp.png'}
+          content={'https://www.run-app.dev/images/ogp.png'}
         />
         <meta property="twitter:title" content={'NPO法人 MOTTAI'} />
         <meta
@@ -42,7 +42,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         />
         <meta
           property="twitter:image"
-          content={'https://www.npo-mottai.org/images/ogp.png'}
+          content={'https://www.run-app.dev/images/ogp.png'}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

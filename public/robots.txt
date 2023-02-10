@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.run-app.dev
+
+# Sitemaps
+Sitemap: https://www.run-app.dev/sitemap.xml
