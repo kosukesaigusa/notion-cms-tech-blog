@@ -11,7 +11,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { FaFacebook, FaTwitter } from 'react-icons/fa'
+import { FaGithub, FaTwitter } from 'react-icons/fa'
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -62,16 +62,8 @@ export default function Footer() {
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={'flex-start'}>
-            <ListHeader>NPO法人MOTTAI</ListHeader>
-            <Link href={'/about'}>私たちについて</Link>
-            <Link href={'/activities'}>MOTTAI の活動</Link>
-            <Link href={'/news'}>ニュース</Link>
-            <Link href={'/support'}>サポートする</Link>
-            <Link href={'/#contact'}>お問い合わせ</Link>
-          </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>法的事項</ListHeader>
-            <Link href={'/privacy'}>プライバシーポリシー</Link>
+            <ListHeader>run-app.dev</ListHeader>
+            <Link href={'/#posts'}>記事一覧</Link>
           </Stack>
         </SimpleGrid>
       </Container>
@@ -90,21 +82,17 @@ export default function Footer() {
           justify={{ md: 'space-between' }}
           align={{ md: 'center' }}
         >
-          <Text fontSize={'sm'}>
-            ©2020– NPO法人 MOTTAI
-            <br />
-            神奈川県小田原市２４７番３
-          </Text>
+          <Text fontSize={'sm'}>©2023– run-app.dev</Text>
           <Stack direction={'row'} spacing={6}>
             <SocialButton
-              label={'Facebook'}
-              href={'https://www.facebook.com/NPOMOTTAI/'}
+              label={'GitHub'}
+              href={'https://github.com/KosukeSaigusa'}
             >
-              <FaFacebook />
+              <FaGithub />
             </SocialButton>
             <SocialButton
               label={'Twitter'}
-              href={'https://twitter.com/MottaiNpo'}
+              href={'https://twitter.com/KosukeSaigusa'}
             >
               <FaTwitter />
             </SocialButton>
