@@ -27,7 +27,7 @@ export const CodeBlock = (props: CodeBlockProps) => {
       language={lang}
       customStyle={{
         borderRadius: 8,
-        backgroundColor: '#192638',
+        // backgroundColor: '#192638',
       }}
     >
       {String(props.children).replace(/\n$/, '')}
