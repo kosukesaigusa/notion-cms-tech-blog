@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-import { Box } from '@chakra-ui/react'
+import { Box, Divider, Heading, Link, Tag, Text } from '@chakra-ui/react'
 import matter from 'gray-matter'
 
 import ContentContainer from '../components/ContentContainer'
@@ -13,9 +13,30 @@ export default function TopPage({
   postMetadata: PostMetadata[]
 }) {
   return (
-    <Box>
+    <Box mt={6}>
       <ContentContainer>
-        <ul>
+        {postMetadata.map((metadata, index) => (
+          <Box key={metadata.pageId}>
+            <Box>
+              <Text fontSize={'xs'} color={'gray.600'}>
+                {metadata.createdAt}
+              </Text>
+              <Heading fontSize={'lg'} mb={1}>
+                <Link href={`posts/${metadata.slug}`}>{metadata.title}</Link>
+              </Heading>
+              <Text fontSize={'sm'} color={'gray.600'} mb={2}>
+                {metadata.description}
+              </Text>
+              {metadata.tags.map((tag) => (
+                <Tag key={tag} mr={2} mb={2} colorScheme={'blue'}>
+                  {tag}
+                </Tag>
+              ))}
+              {index !== postMetadata.length - 1 && <Divider my={2} />}
+            </Box>
+          </Box>
+        ))}
+        {/* <ul>
           {postMetadata.map((metadata) => (
             <li key={metadata.pageId}>
               <a href={`/posts/${metadata.slug}`}>
@@ -23,7 +44,7 @@ export default function TopPage({
               </a>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </ContentContainer>
     </Box>
   )
@@ -46,7 +67,7 @@ export const getStaticProps = async (): Promise<{
     const slug = data.slug as string
     const title = data.title as string
     const createdAt = jaYYYYMMDD(data.createdAt)
-    const tags = data.tags as string[]
+    const tags = (data.tags as string).split(',') ?? []
     const description = data.description as string
     const isDraft = data.isDraft as boolean
     return { pageId, slug, createdAt, title, tags, description, isDraft }

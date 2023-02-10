@@ -4,22 +4,12 @@ import {
   Box,
   chakra,
   Container,
-  Link,
-  SimpleGrid,
   Stack,
   Text,
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react'
 import { FaGithub, FaTwitter } from 'react-icons/fa'
-
-const ListHeader = ({ children }: { children: ReactNode }) => {
-  return (
-    <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
-      {children}
-    </Text>
-  )
-}
 
 const SocialButton = ({
   children,
@@ -59,15 +49,6 @@ export default function Footer() {
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}
     >
-      <Container as={Stack} maxW={'6xl'} py={10}>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
-          <Stack align={'flex-start'}>
-            <ListHeader>run-app.dev</ListHeader>
-            <Link href={'/#posts'}>記事一覧</Link>
-          </Stack>
-        </SimpleGrid>
-      </Container>
-
       <Box
         borderTopWidth={1}
         borderStyle={'solid'}

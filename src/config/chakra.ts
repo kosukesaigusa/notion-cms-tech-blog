@@ -16,7 +16,7 @@ export const theme = extendTheme({
   // https://chakra-ui.com/docs/theming/theme#typography
   fonts: {
     body: 'system-ui, sans-serif',
-    heading: 'Georgia, serif',
+    heading: 'system-ui, sans-serif',
     mono: 'Menlo, monospace',
   },
   // デフォルトのカラーモード

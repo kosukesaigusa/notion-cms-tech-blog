@@ -37,7 +37,7 @@ type CodeProps = {
 
 export const CommonH2 = (props: Props) => {
   return (
-    <Heading mt={6} mb={4} as={'h2'} size={'lg'} color="orange.500">
+    <Heading mt={6} mb={4} as={'h2'} fontSize={'lg'}>
       {props.text}
     </Heading>
   )
@@ -45,7 +45,7 @@ export const CommonH2 = (props: Props) => {
 
 export const CommonH3 = (props: Props) => {
   return (
-    <Heading mt={6} mb={4} as={'h3'} size={'lg'} color="orange.500">
+    <Heading mt={6} mb={4} as={'h3'} fontSize={'md'}>
       {props.text}
     </Heading>
   )
@@ -53,7 +53,7 @@ export const CommonH3 = (props: Props) => {
 
 export const CommonH4 = (props: Props) => {
   return (
-    <Heading mt={6} mb={4} as={'h4'} size={'sm'} color="orange.500">
+    <Heading mt={6} mb={4} as={'h4'} fontSize={'sm'}>
       {props.text}
     </Heading>
   )
