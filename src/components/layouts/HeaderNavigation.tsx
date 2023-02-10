@@ -8,12 +8,10 @@ import {
 } from '@chakra-ui/icons'
 import {
   Box,
-  Button,
   Collapse,
   Flex,
   Icon,
   IconButton,
-  Image,
   Link,
   Popover,
   PopoverContent,
@@ -56,13 +54,13 @@ export default function HeaderNavigation() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <NextLink href={'/'}>
-            <Image src="/images/mottai-logo.svg" alt="NPO法人 MOTTAI" />
+            <Text>run-app.dev</Text>
           </NextLink>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10} my="auto">
             <DesktopNav />
           </Flex>
         </Flex>
-        <Stack
+        {/* <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
@@ -80,9 +78,9 @@ export default function HeaderNavigation() {
               bg: 'teal.300',
             }}
           >
-            サポートする
+            問い合わせ
           </Button>
-        </Stack>
+        </Stack> */}
       </Flex>
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
@@ -244,7 +242,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
   )
 }
 
-interface NavItem {
+type NavItem = {
   label: string
   subLabel?: string
   children?: Array<NavItem>
@@ -253,11 +251,7 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'ブログ',
-    href: '/news',
-  },
-  {
-    label: 'お問い合わせ',
-    href: '/#contact',
+    label: '記事一覧',
+    href: '/posts',
   },
 ]
