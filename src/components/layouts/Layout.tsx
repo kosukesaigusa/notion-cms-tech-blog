@@ -12,18 +12,18 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <Box>
       <Head>
-        <title>タイトル</title>
+        <title>run-app.dev</title>
         <meta
           name="description"
-          content="MOTTAIは「当たり前の裏側にアクセスしやすい社会を創る」をビジョンに掲げて活動するNPO法人です。"
+          content="アプリケーションエンジニアの技術ブログ。Flutter, Dart, Firebase, Django, Python, React, TypeScript, ...。"
         />
         <meta property="og:url" content={'https://www.run-app.dev'} />
-        <meta property="og:site_name" content={'NPO法人 MOTTAI | 公式サイト'} />
-        <meta property="og:title" content={'NPO法人 MOTTAI'} />
+        <meta property="og:site_name" content={'run-app.dev | 公式サイト'} />
+        <meta property="og:title" content={'run-app.dev'} />
         <meta
           property="og:description"
           content={
-            'MOTTAIは「当たり前の裏側にアクセスしやすい社会を創る」をビジョンに掲げて活動するNPO法人です。'
+            'アプリケーションエンジニアの技術ブログ。Flutter, Dart, Firebase, Django, Python, React, TypeScript, ...。'
           }
         />
         <meta property="og:type" content={'website'} />
@@ -33,11 +33,11 @@ export default function Layout({ children }: { children: ReactNode }) {
           property="og:image"
           content={'https://www.run-app.dev/images/ogp.png'}
         />
-        <meta property="twitter:title" content={'NPO法人 MOTTAI'} />
+        <meta property="twitter:title" content={'run-app.dev'} />
         <meta
           property="twitter:description"
           content={
-            'MOTTAIは「当たり前の裏側にアクセスしやすい社会を創る」をビジョンに掲げて活動するNPO法人です。'
+            'アプリケーションエンジニアの技術ブログ。Flutter, Dart, Firebase, Django, Python, React, TypeScript, ...。'
           }
         />
         <meta
