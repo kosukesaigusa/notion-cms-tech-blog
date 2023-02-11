@@ -17,27 +17,38 @@ import {
   CommonText,
   CommonUnorderedList,
 } from '../../components/Common'
+import { CustomHead } from '../../components/CustomHead'
+import TopicPath from '../../components/TopicPath'
 import { EXPORTED_POSTS_PATH } from '../../constants/constants'
 import { jaYYYYMMDD } from '../../utils/date'
 
 export default function PostArticle({ post }: { post: Post }) {
   return (
-    <Box maxW={'48em'} mx={'auto'} my={12} py={0} px={'2rem'}>
-      {/* <TopicPath /> */}
-      <Heading fontSize={'md'}>{post.metadata.title}</Heading>
-      <Text>投稿日：{post.metadata.createdAt}</Text>
-      <ReactMarkdown
-        components={ChakraUIRenderer(customChakraUIRenderTheme)}
-        skipHtml
-      >
-        {post.content}
-      </ReactMarkdown>
-    </Box>
+    <div>
+      <PostHead post={post} />
+      <Box maxW={'48em'} mx={'auto'} my={12} py={0} px={'2rem'}>
+        <TopicPath />
+        <Heading fontSize={'xl'}>{post.metadata.title}</Heading>
+        <Text fontSize={'xs'} color={'gray.600'}>
+          {post.metadata.createdAt}
+        </Text>
+        <ReactMarkdown
+          components={ChakraUIRenderer(customChakraUIRenderTheme)}
+          skipHtml
+        >
+          {post.content}
+        </ReactMarkdown>
+      </Box>
+    </div>
   )
 }
 
-// TODO: コメントを書く
-/**  */
+const PostHead = ({ post }: { post: Post }) => {
+  // TODO: Override by page metadata.
+  return <CustomHead />
+}
+
+/** Fetches post from given slug string. */
 export function getStaticProps({ params }: { params: { slug: string } }) {
   const fileContent = fs.readFileSync(
     `${EXPORTED_POSTS_PATH}/${params.slug}.md`,
@@ -66,8 +77,7 @@ export function getStaticProps({ params }: { params: { slug: string } }) {
   return { props: { post } }
 }
 
-// TODO: コメントを書く
-/**  */
+/** Fetches all exported post paths. */
 export function getStaticPaths() {
   const postFiles = fs.readdirSync(EXPORTED_POSTS_PATH)
   const paths = postFiles.map((fileName) => ({
@@ -81,9 +91,9 @@ export function getStaticPaths() {
   }
 }
 
-/** */
+/** Define custom markdown post UI rendering theme. */
 const customChakraUIRenderTheme = {
-  // TODO: 本当は any はやめたい
+  // TODO: Stop using any here.
   h2: (props: any) => {
     return <CommonH2 text={props.children} />
   },
