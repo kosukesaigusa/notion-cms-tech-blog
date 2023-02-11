@@ -67,7 +67,7 @@ export const getStaticProps = async (): Promise<{
     const slug = data.slug as string
     const title = data.title as string
     const createdAt = jaYYYYMMDD(data.createdAt)
-    const tags = (data.tags as string).split(',') ?? []
+    const tags = ((data.tags as string) ?? '').split(',') ?? []
     const description = data.description as string
     const isDraft = data.isDraft as boolean
     return { pageId, slug, createdAt, title, tags, description, isDraft }
