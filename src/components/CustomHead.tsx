@@ -1,13 +1,11 @@
 import Head from 'next/head'
 
-export const siteTitle = 'run-app.dev'
-
-const siteUrl = 'https://www.run-app.dev'
-
-export const siteDescription =
-  'アプリケーションエンジニアの技術ブログ。Flutter, Dart, Firebase, Django, Python, React, TypeScript, ...。'
-
-const ogImage = 'https://www.run-app.dev/images/ogp.png'
+import {
+  ogImage,
+  siteDescription,
+  siteTitle,
+  siteUrl,
+} from '../constants/constants'
 
 type Prop = {
   description?: string

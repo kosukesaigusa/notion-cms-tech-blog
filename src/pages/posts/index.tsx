@@ -1,9 +1,6 @@
 import ContentContainer from '../../components/ContentContainer'
-import {
-  CustomHead,
-  siteDescription,
-  siteTitle,
-} from '../../components/CustomHead'
+import { CustomHead } from '../../components/CustomHead'
+import { siteDescription, siteTitle } from '../../constants/constants'
 
 export default function PostArticlePage({ posts }: { posts: Post[] }) {
   return (
