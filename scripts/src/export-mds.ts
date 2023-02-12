@@ -1,12 +1,10 @@
 import fs from 'fs/promises'
 
 import { NotionToMarkdown } from 'notion-to-md'
+import { EXPORTED_POSTS_RELATIVE_PATH } from './constants'
 
 import { notionClient, queryDatabase } from './notion-api'
 import { NotionPage, parseProperties } from './parse-notion-page'
-
-/** Path to exported markdown files will be saved. */
-const EXPORTED_POSTS_RELATIVE_PATH = '../exported-posts'
 
 /** Notion to markdown package client. */
 const n2m = new NotionToMarkdown({ notionClient: notionClient })

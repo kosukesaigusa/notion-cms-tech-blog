@@ -11,8 +11,8 @@ export const fetchPostsAsStaticProps = async (): Promise<{
     postMetadata: PostMetadata[]
   }
 }> => {
-  const postFiles = fs.readdirSync(EXPORTED_POSTS_PATH).reverse()
-  const postMetadata = postFiles.map((postFileName) => {
+  const postFilePaths = fs.readdirSync(EXPORTED_POSTS_PATH).reverse()
+  const postMetadata = postFilePaths.map((postFileName) => {
     const fileContent = fs.readFileSync(
       `${EXPORTED_POSTS_PATH}/${postFileName}`,
       'utf-8'

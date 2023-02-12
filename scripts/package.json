@@ -7,17 +7,19 @@
         "lint:fix": "npm run lint -- --fix",
         "lint-staged": "lint-staged",
         "export-mds": "ts-node -r tsconfig-paths/register  src/export-mds && npm run format-mds",
+        "generate-og-images": "ts-node -r tsconfig-paths/register  src/generate-og-images",
         "format-mds": "prettier --write --ignore-path .gitignore '../exported-posts/*md'",
-        "format": "prettier --write --ignore-path .gitignore './**/*.{md,js,jsx,ts,tsx,json}'"
+        "format": "prettier --write --ignore-path .gitignore './**/*.{md,html,js,jsx,ts,tsx,json}'"
     },
     "dependencies": {
         "@notionhq/client": "^2.2.3",
-        "@types/node": "18.11.9",
         "dotenv": "^16.0.3",
         "notion-to-md": "^2.5.5",
+        "puppeteer": "^19.6.3",
         "typescript": "4.8.4"
     },
     "devDependencies": {
+        "@types/node": "^18.13.0",
         "eslint": "8.26.0",
         "eslint-config-prettier": "^8.6.0",
         "eslint-plugin-unused-imports": "^2.0.0",
