@@ -44,8 +44,21 @@ export default function PostArticle({ post }: { post: Post }) {
 }
 
 const PostHead = ({ post }: { post: Post }) => {
-  // TODO: Override by page metadata.
-  return <CustomHead />
+  const metadata = post.metadata
+  return (
+    <CustomHead
+      description={metadata.description}
+      // TODO: Gives imageUrl when notion post becomes compatible.
+      // ogUrl={metadata.imageUrl}
+      ogSiteName={metadata.title}
+      ogTitle={metadata.title}
+      ogDescription={metadata.description}
+      // ogImage={metadata.imageUrl}
+      // twitterTitle={metadata.imageUrl}
+      twitterDescription={metadata.description}
+      // twitterImage={metadata.imageUrl}
+    />
+  )
 }
 
 /** Fetches post from given slug string. */

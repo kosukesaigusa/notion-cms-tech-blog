@@ -1,11 +1,26 @@
-import { Box } from '@chakra-ui/react'
-
 import ContentContainer from '../../components/ContentContainer'
+import {
+  CustomHead,
+  siteDescription,
+  siteTitle,
+} from '../../components/CustomHead'
 
 export default function PostArticlePage({ posts }: { posts: Post[] }) {
   return (
-    <Box>
+    <div>
+      <PostsHead />
       <ContentContainer>a</ContentContainer>
-    </Box>
+    </div>
+  )
+}
+
+const PostsHead = () => {
+  return (
+    <CustomHead
+      ogSiteName={`記事一覧 | ${siteTitle}`}
+      ogTitle={`記事一覧 | ${siteTitle}`}
+      ogDescription={`記事一覧 | ${siteDescription}`}
+      twitterDescription={`記事一覧 | ${siteDescription}`}
+    />
   )
 }

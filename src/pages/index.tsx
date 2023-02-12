@@ -4,6 +4,7 @@ import { Box } from '@chakra-ui/react'
 import matter from 'gray-matter'
 
 import ContentContainer from '../components/ContentContainer'
+import { CustomHead } from '../components/CustomHead'
 import { Posts } from '../components/Post'
 import { EXPORTED_POSTS_PATH } from '../constants/constants'
 import { jaYYYYMMDD } from '../utils/date'
@@ -14,11 +15,14 @@ export default function TopPage({
   postMetadata: PostMetadata[]
 }) {
   return (
-    <Box mt={6}>
-      <ContentContainer>
-        <Posts postMetadata={postMetadata} />
-      </ContentContainer>
-    </Box>
+    <div>
+      <CustomHead />
+      <Box mt={6}>
+        <ContentContainer>
+          <Posts postMetadata={postMetadata} />
+        </ContentContainer>
+      </Box>
+    </div>
   )
 }
 
