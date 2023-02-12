@@ -47,8 +47,6 @@ const makeOgImagesDirectory = async () => {
     await fs.mkdir(OG_IMAGES_PATH, { recursive: true })
 }
 
-/**  */
-
 /** Executes task. */
 ;(async () => {
     await crateOgImages()
