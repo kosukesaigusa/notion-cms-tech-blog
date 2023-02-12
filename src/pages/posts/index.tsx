@@ -1,12 +1,27 @@
+import { Box, Heading } from '@chakra-ui/react'
+
 import ContentContainer from '../../components/ContentContainer'
 import { CustomHead } from '../../components/CustomHead'
+import { Posts } from '../../components/Post'
+import TopicPath from '../../components/TopicPath'
 import { siteDescription, siteTitle } from '../../constants/constants'
+import { fetchPostsAsStaticProps } from '../../features/posts/fetch-posts'
 
-export default function PostArticlePage({ posts }: { posts: Post[] }) {
+export default function PostsPage({
+  postMetadata,
+}: {
+  postMetadata: PostMetadata[]
+}) {
   return (
     <div>
       <PostsHead />
-      <ContentContainer>a</ContentContainer>
+      <Box mt={6}>
+        <ContentContainer>
+          <Heading fontSize={'xl'}>記事一覧</Heading>
+          <TopicPath />
+          <Posts postMetadata={postMetadata} />
+        </ContentContainer>
+      </Box>
     </div>
   )
 }
@@ -21,3 +36,9 @@ const PostsHead = () => {
     />
   )
 }
+
+export const getStaticProps = async (): Promise<{
+  props: {
+    postMetadata: PostMetadata[]
+  }
+}> => fetchPostsAsStaticProps()

@@ -43,7 +43,7 @@ export default function TopicPath() {
     )
     previousPath = `${previousPath}${path}/`
   }
-  return <Box mb={4}>{topicPaths}</Box>
+  return <Box mb={6}>{topicPaths}</Box>
 }
 
 /** Returns label from path string. */
