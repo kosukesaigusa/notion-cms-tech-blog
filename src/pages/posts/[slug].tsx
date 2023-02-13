@@ -1,23 +1,10 @@
 import fs from 'fs'
 
-import { Box, Divider, Heading, Text } from '@chakra-ui/react'
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
+import { Box, Heading, Text } from '@chakra-ui/react'
 import matter from 'gray-matter'
-import ReactMarkdown from 'react-markdown'
 
-import { CodeBlock, CodeBlockProps } from '../../components/CodeBlock'
-import {
-  CommonExternalLinkText,
-  CommonH2,
-  CommonH3,
-  CommonH4,
-  CommonImage,
-  CommonListItem,
-  CommonOrderedList,
-  CommonText,
-  CommonUnorderedList,
-} from '../../components/Common'
 import { CustomHead } from '../../components/CustomHead'
+import { MarkdownContent } from '../../components/MarkdownContent'
 import TopicPath from '../../components/TopicPath'
 import { EXPORTED_POSTS_PATH } from '../../constants/constants'
 import { jaYYYYMMDD } from '../../utils/date'
@@ -32,12 +19,7 @@ export default function PostArticle({ post }: { post: Post }) {
         <Text fontSize={'xs'} color={'gray.600'}>
           {post.metadata.createdAt}
         </Text>
-        <ReactMarkdown
-          components={ChakraUIRenderer(customChakraUIRenderTheme)}
-          skipHtml
-        >
-          {post.content}
-        </ReactMarkdown>
+        <MarkdownContent content={post.content} />
       </Box>
     </div>
   )
@@ -102,46 +84,4 @@ export function getStaticPaths() {
     paths,
     fallback: false,
   }
-}
-
-/** Define custom markdown post UI rendering theme. */
-const customChakraUIRenderTheme = {
-  // TODO: Stop using any here.
-  h2: (props: any) => {
-    return <CommonH2 text={props.children} />
-  },
-  h3: (props: any) => {
-    return <CommonH3 text={props.children} />
-  },
-  h4: (props: any) => {
-    return <CommonH4 text={props.children} />
-  },
-  p: (props: any) => {
-    return <CommonText text={props.children} />
-  },
-  a: (props: any) => {
-    return <CommonExternalLinkText href={props.href} text={props.children} />
-  },
-  ul: (props: any) => {
-    return <CommonUnorderedList>{props.children}</CommonUnorderedList>
-  },
-  ol: (props: any) => {
-    return <CommonOrderedList>{props.children}</CommonOrderedList>
-  },
-  li: (props: any) => {
-    return <CommonListItem>{props.children}</CommonListItem>
-  },
-  img: (props: any) => {
-    return <CommonImage src={props.src} alt={props.alt}></CommonImage>
-  },
-  code: (props: CodeBlockProps) => {
-    return (
-      <CodeBlock inline={props.inline} className={props.className}>
-        {props.children}
-      </CodeBlock>
-    )
-  },
-  hr: (_: any) => {
-    return <Divider my={8} />
-  },
 }
