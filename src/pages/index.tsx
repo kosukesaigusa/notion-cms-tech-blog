@@ -11,14 +11,14 @@ export default function TopPage({
   postMetadata: PostMetadata[]
 }) {
   return (
-    <div>
+    <>
       <CustomHead />
       <Box mt={6}>
         <ContentContainer>
           <Posts postMetadata={postMetadata} />
         </ContentContainer>
       </Box>
-    </div>
+    </>
   )
 }
 

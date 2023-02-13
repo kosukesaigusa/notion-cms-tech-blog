@@ -8,7 +8,7 @@ import HeaderNavigation from './HeaderNavigation'
 /** Gives site layout. */
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <Box>
+    <>
       <Flex minH={'100vh'} flexDirection={'column'}>
         <HeaderNavigation />
         <Box flexGrow={1} mb={20}>
@@ -16,6 +16,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         </Box>
         <Footer />
       </Flex>
-    </Box>
+    </>
   )
 }

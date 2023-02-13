@@ -13,7 +13,7 @@ export default function PostsPage({
   postMetadata: PostMetadata[]
 }) {
   return (
-    <div>
+    <>
       <PostsHead />
       <Box mt={6}>
         <ContentContainer>
@@ -22,7 +22,7 @@ export default function PostsPage({
           <Posts postMetadata={postMetadata} />
         </ContentContainer>
       </Box>
-    </div>
+    </>
   )
 }
 

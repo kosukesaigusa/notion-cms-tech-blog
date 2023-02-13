@@ -11,7 +11,7 @@ import { jaYYYYMMDD } from '../../utils/date'
 
 export default function PostArticle({ post }: { post: Post }) {
   return (
-    <div>
+    <>
       <PostHead post={post} />
       <Box maxW={'48em'} mx={'auto'} my={12} py={0} px={'2rem'}>
         <TopicPath />
@@ -21,7 +21,7 @@ export default function PostArticle({ post }: { post: Post }) {
         </Text>
         <MarkdownContent content={post.content} />
       </Box>
-    </div>
+    </>
   )
 }
 

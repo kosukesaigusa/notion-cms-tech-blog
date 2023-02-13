@@ -2,7 +2,7 @@ import { Box, Divider, Heading, Link, Tag, Text } from '@chakra-ui/react'
 
 export const Posts = ({ postMetadata }: { postMetadata: PostMetadata[] }) => {
   return (
-    <Box>
+    <>
       {postMetadata.map((metadata, index) => (
         <Box key={metadata.pageId}>
           <Box>
@@ -24,6 +24,6 @@ export const Posts = ({ postMetadata }: { postMetadata: PostMetadata[] }) => {
           </Box>
         </Box>
       ))}
-    </Box>
+    </>
   )
 }
