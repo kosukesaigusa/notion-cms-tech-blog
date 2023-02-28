@@ -9,6 +9,10 @@ export const notionClient = new Client({ auth: NOTION_API_KEY })
 export const queryDatabase = async () =>
     await notionClient.databases.query({
         database_id: NOTION_DATABASE_ID
-        // TODO: ページサイズをちょうどよく調整する。
+        // TODO: Adjust page size when necessary.
         // page_size: 10,
     })
+
+/** Experimental: retrieves block children of specified page ID. */
+export const retrieveBlockChildrenByPageId = async (pageId: string) =>
+    await notionClient.blocks.children.list({ block_id: pageId })
