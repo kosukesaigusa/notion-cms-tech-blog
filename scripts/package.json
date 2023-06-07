@@ -7,7 +7,7 @@
         "lint:fix": "npm run lint -- --fix",
         "lint-staged": "lint-staged",
         "export-mds": "ts-node -r tsconfig-paths/register  src/export-mds && npm run format-mds",
-        "generate-og-images": "ts-node -r tsconfig-paths/register  src/generate-og-images-by-playwright",
+        "generate-og-images": "ts-node -r tsconfig-paths/register  src/generate-og-images",
         "format-mds": "prettier --write --ignore-path .gitignore '../exported-posts/*md'",
         "format": "prettier --write --ignore-path .gitignore './**/*.{md,html,js,jsx,ts,tsx,json}'"
     },

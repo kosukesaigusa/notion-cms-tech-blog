@@ -1,53 +1,60 @@
-// import fs from 'fs/promises'
+import { chromium } from 'playwright'
+import ejs from 'ejs'
+import { readFile } from 'fs/promises'
+import fs from 'fs/promises'
+import { EXPORTED_POSTS_RELATIVE_PATH, OG_IMAGES_PATH } from './constants'
+import path from 'path'
 
-// import path from 'path'
-// import puppeteer from 'puppeteer'
-// import {
-//     BASE_INDEX_HTML_PATH,
-//     EXPORTED_POSTS_RELATIVE_PATH,
-//     OG_IMAGES_PATH
-// } from './constants'
+/** Once removes og images directory and make a new one. */
+const makeOgImagesDirectory = async () => {
+    await fs.rm(OG_IMAGES_PATH, { recursive: true })
+    await fs.mkdir(OG_IMAGES_PATH, { recursive: true })
+}
 
-// // 参考：
-// // https://macoshita.me/posts/puppeteer-og-image/
+const generateAllOGPImages = async () => {
+    await makeOgImagesDirectory()
 
-// /* Create og images. */
-// const crateOgImages = async () => {
-//     // await makeOgImagesDirectory()
+    const postFilePaths = (
+        await fs.readdir(EXPORTED_POSTS_RELATIVE_PATH)
+    ).reverse()
+    for (const postFileName of postFilePaths) {
+        await generateOGPImage(
+            postFileName,
+            'KosukeSaigusa',
+            'https://2.gravatar.com/avatar/d6d15e8595ba956a4738d36b25ef8c96?size=80'
+        )
+    }
+}
 
-//     const browser = await puppeteer.launch()
-//     const page = await browser.newPage()
-//     page.setViewport({ width: 1200, height: 630 })
+const generateOGPImage = async (
+    title: string,
+    authorName: string,
+    authorImageUrl: string
+): Promise<void> => {
+    const browser = await chromium.launch()
+    const context = await browser.newContext({
+        viewport: { width: 1200, height: 630 }
+    })
+    const page = await context.newPage()
 
-//     await page.goto(`file:${path.resolve(process.cwd(), BASE_INDEX_HTML_PATH)}`)
-//     await page.waitForSelector('#title')
+    // Load the EJS template
+    const template = await readFile('src/ogp-template.ejs', 'utf-8')
+    const html = ejs.render(template, {
+        title,
+        authorName,
+        authorImageUrl
+    })
 
-//     const postFilePaths = (
-//         await fs.readdir(EXPORTED_POSTS_RELATIVE_PATH)
-//     ).reverse()
-//     console.log(`💬 Create ${postFilePaths.length} OG images.`)
-//     for (const postFileName of postFilePaths) {
-//         console.log(`💬 Start creating OG image of ${postFileName}.`)
-//         // Page.evaluate executes the first argument function
-//         // with given parameter as second argument.
-//         await page.evaluate((postFileName) => {
-//             const $ = (id: string): HTMLElement => document.getElementById(id)!
-//             $('title').innerText = postFileName
-//         }, postFileName)
-//         await page.screenshot({
-//             path: path.join(OG_IMAGES_PATH, postFileName + '.png')
-//         })
-//     }
-//     await browser.close()
-// }
+    // Render the HTML in Playwright
+    await page.setContent(html)
 
-// /** Once removes og images directory and make a new one. */
-// const makeOgImagesDirectory = async () => {
-//     await fs.rm(OG_IMAGES_PATH, { recursive: true })
-//     await fs.mkdir(OG_IMAGES_PATH, { recursive: true })
-// }
+    // Take a screenshot
+    await page.screenshot({ path: path.join(OG_IMAGES_PATH, title + '.png') })
 
-// /** Executes task. */
-// ;(async () => {
-//     await crateOgImages()
-// })()
+    await browser.close()
+}
+
+/** Executes task. */
+;(async () => {
+    await generateAllOGPImages()
+})()
