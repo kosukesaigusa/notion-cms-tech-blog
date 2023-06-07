@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding: 50px;
+            box-sizing: border-box;
+            border: 30px solid;
+            border-image: linear-gradient(90deg, #2c3e50, #4b6584) 1;
+            border-radius: 30px;
+        }
+        h1 {
+            font-size: 3em;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .author {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            bottom: 70px;
+            right: 70px;
+            font-size: 2em;
+            color: #2c3e50;
+        }
+        .author img {
+            border-radius: 50%;
+            height: 70px;
+            width: 70px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <div class="author">
+        <span><%= authorName %></span>
+        <img src="<%= authorImageUrl %>" alt="Author Image">
+    </div>
+</body>
+</html>
