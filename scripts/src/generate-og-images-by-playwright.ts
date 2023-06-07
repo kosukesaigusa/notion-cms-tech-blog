@@ -49,7 +49,6 @@ const generateOGPImage = async (
     await page.setContent(html)
 
     // Take a screenshot
-    // await page.screenshot({ path: 'ogp-image.png' })
     await page.screenshot({ path: path.join(OG_IMAGES_PATH, title + '.png') })
 
     await browser.close()
