@@ -15,7 +15,7 @@ import {
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 export const MarkdownContent = (props: { content: string }) => {
   return (
@@ -84,11 +84,10 @@ const CodeBlock = (props: CodeBlockProps) => {
   const lang = match && match[1] ? match[1] : ''
   return (
     <SyntaxHighlighter
-      style={materialDark}
+      style={oneDark}
       language={lang}
       customStyle={{
         borderRadius: 8,
-        // backgroundColor: '#192638',
       }}
     >
       {String(props.children).replace(/\n$/, '')}
