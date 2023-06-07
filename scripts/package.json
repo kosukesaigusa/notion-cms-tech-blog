@@ -7,25 +7,27 @@
         "lint:fix": "npm run lint -- --fix",
         "lint-staged": "lint-staged",
         "export-mds": "ts-node -r tsconfig-paths/register  src/export-mds && npm run format-mds",
-        "generate-og-images": "ts-node -r tsconfig-paths/register  src/generate-og-images",
+        "generate-og-images": "ts-node -r tsconfig-paths/register  src/generate-og-images-by-playwright",
         "format-mds": "prettier --write --ignore-path .gitignore '../exported-posts/*md'",
         "format": "prettier --write --ignore-path .gitignore './**/*.{md,html,js,jsx,ts,tsx,json}'"
     },
     "dependencies": {
-        "@notionhq/client": "^2.2.3",
-        "dotenv": "^16.0.3",
-        "notion-to-md": "^2.5.5",
-        "puppeteer": "^19.6.3",
-        "typescript": "4.8.4"
+        "@notionhq/client": "^2.2.5",
+        "dotenv": "^16.1.4",
+        "ejs": "^3.1.9",
+        "notion-to-md": "^3.0.1",
+        "playwright": "^1.34.3",
+        "typescript": "5.1.3"
     },
     "devDependencies": {
-        "@types/node": "^18.13.0",
-        "eslint": "8.26.0",
-        "eslint-config-prettier": "^8.6.0",
+        "@types/ejs": "^3.1.2",
+        "@types/node": "^20.2.5",
+        "eslint": "8.42.0",
+        "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-unused-imports": "^2.0.0",
-        "prettier": "^2.8.3",
+        "prettier": "^2.8.8",
         "ts-node": "^10.9.1",
-        "tsconfig-paths": "^4.1.2"
+        "tsconfig-paths": "^4.2.0"
     },
     "volta": {
         "node": "16.18.1",
